@@ -1,28 +1,28 @@
 plugins {
-    alias(libs.plugins.jvm) // <1>
+    alias(libs.plugins.jvm)
 
-    `java-library` // <2>
+    `java-library`
 }
 
 group = "com.nomemmurrakh"
 version = "1.0"
 
 repositories {
-    mavenCentral() // <3>
+    mavenCentral()
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5") // <4>
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 
-    testImplementation(libs.junit.jupiter.engine) // <5>
+    testImplementation(libs.junit.jupiter.engine)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    api(libs.commons.math3) // <6>
+    api(libs.commons.math3)
 
-    implementation(libs.guava) // <7>
+    implementation(libs.guava)
 }
 
 tasks.named<Test>("test") {
-    useJUnitPlatform() // <8>
+    useJUnitPlatform()
 }

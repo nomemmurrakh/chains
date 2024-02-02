@@ -1,0 +1,8 @@
+# Build Folders Anywhere
+chains/build
+
+# Gradle Generated Files
+.gradle/
+
+# User-specific Configuration
+.idea
