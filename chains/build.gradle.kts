@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.jvm)
 
     `java-library`
+
+    `maven-publish`
 }
 
 group = "com.nomemmurrakh"
@@ -25,4 +27,16 @@ dependencies {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.nomemmurrakh"
+            artifactId = "chains"
+            version = "1.0.0"
+
+            from(components["java"])
+        }
+    }
 }
