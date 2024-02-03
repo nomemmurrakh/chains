@@ -6,3 +6,6 @@ chains/build
 
 # User-specific Configuration
 .idea
+
+# Main file
+chains/src/main/kotlin/nomemmurrakh/chains/Main.kt

@@ -9,4 +9,6 @@ data class Validator(
         if (predicate())
             next?.validate() ?: Result.success(true)
         else Result.failure(IllegalStateException(message ?: "A message was not specified"))
+
+    fun Validator.nextOrThis(): Validator = next?.nextOrThis() ?: this
 }
