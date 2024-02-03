@@ -1,5 +1,20 @@
 [![](https://jitpack.io/v/nomemmurrakh/chains.svg)](https://jitpack.io/#nomemmurrakh/chains)
 
+# Dependency
+	// add in settings.gradle or root build.gradle
+	dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+	// module-level build.gradle
+ 	dependencies {
+	        implementation 'com.github.nomemmurrakh:chains:1.0.2'
+	}
+
 # Chains - Validation Library in Kotlin
 
 **Validations without error messages**
@@ -22,21 +37,19 @@ You can read the above code as follow:
 
 **Combine Chains**
 
-    fun password(password: String) =  
-	    chain {  
-		    "Password must not be empty".unless { password.isNotEmpty() } +  
-		    "Password must be greater or equals to 8 chars".unless { password.length >= 8 
-	    }  
-    }
-    
-    fun email(email: String) =  
-	    chain {  
-			"Email must not be empty".unless { email.isNotEmpty() } +  
-			"Email must contains @ sign".unless { email.contains("@") 
-		}  
-	}
-	  
-	val combined = chain { email("example.com") + password("12345") }
+    fun password(password: String) =
+        chain {
+            "Password must not be empty".unless { password.isNotEmpty() } +
+                    "Password must be greater or equals to 8 chars".unless { password.length >= 8 }
+        }
+
+    fun email(email: String) =
+        chain {
+            "Email must not be empty".unless { email.isNotEmpty() } +
+                    "Email must contains @ sign".unless { email.contains("@") }
+        }
+
+    val combined = chain { email("example.com") + password("12345") }
 
 You can combine independent chains or validators together to form a more complex chain.
 
