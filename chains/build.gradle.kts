@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.nomemmurrakh"
-version = "1.0"
+version = "1.0.2"
 
 repositories {
     mavenCentral()
@@ -30,7 +30,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.nomemmurrakh"
             artifactId = "chains"
-            version = "1.0.0"
+            version = "1.0.2"
 
             from(components["java"])
         }
