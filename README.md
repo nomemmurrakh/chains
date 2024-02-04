@@ -1,37 +1,44 @@
 [![](https://jitpack.io/v/nomemmurrakh/chains.svg)](https://jitpack.io/#nomemmurrakh/chains)
 
 # Dependency
-	// add in settings.gradle or root build.gradle
-	dependencyResolutionManagement {
-		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-		repositories {
-			mavenCentral()
-			maven { url 'https://jitpack.io' }
-		}
+```groovy
+// add in settings.gradle or root build.gradle
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		mavenCentral()
+		maven { url 'https://jitpack.io' }
 	}
+}
 
-	// module-level build.gradle
- 	dependencies {
-	        implementation 'com.github.nomemmurrakh:chains:1.0.2'
-	}
+// module-level build.gradle
+dependencies {
+	implementation 'com.github.nomemmurrakh:chains:1.0.2'
+}
+```
 
 # Chains - Validation Library in Kotlin
 
 **Validations without error messages**
 
-    chain {  
-	    validator { password.isNotEmpty() } + 
-	    validator { password.length >= 8 }  
-    }
+```kotlin
+chain {
+	validator { password.isNotEmpty() } + 
+	validator { password.length >= 8 }  
+}
+```
 
 The above code can be used when you only want to know if the validations are successful or not, and you don't care about the error messages.
 
 **Validations with error messages**
 
-    chain {  
-	    "Password must not be empty".unless { password.isNotEmpty() } + 
-	    "Password must be greater or equals to 8 chars".unless { password.length >= 8 }  
-    }
+```kotlin
+chain {  
+    "Password must not be empty".unless { password.isNotEmpty() } + 
+    "Password must be greater or equals to 8 chars".unless { password.length >= 8 }  
+}
+```
+
 You can read the above code as follow:
 "throw **error message** unless the given condition is met"
 
