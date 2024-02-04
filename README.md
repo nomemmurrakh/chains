@@ -44,34 +44,42 @@ You can read the above code as follow:
 
 **Combine Chains**
 
-    fun password(password: String) =
-        chain {
-            "Password must not be empty".unless { password.isNotEmpty() } +
-                    "Password must be greater or equals to 8 chars".unless { password.length >= 8 }
-        }
+```kotlin
+fun password(password: String) =
+	chain {
+		"Password must not be empty".unless { password.isNotEmpty() } +
+			"Password must be greater or equals to 8 chars".unless { password.length >= 8 }
+	}
 
-    fun email(email: String) =
-        chain {
-            "Email must not be empty".unless { email.isNotEmpty() } +
-                    "Email must contains @ sign".unless { email.contains("@") }
-        }
+fun email(email: String) =
+	chain {
+    		"Email must not be empty".unless { email.isNotEmpty() } +
+	    		"Email must contains @ sign".unless { email.contains("@") }
+	}
 
-    val combined = chain { email("example.com") + password("12345") }
+val combined = chain { email("example.com") + password("12345") }
+```
 
 You can combine independent chains or validators together to form a more complex chain.
 
 **Single validator**
 
-    val validator = Validator(  
-	    message = "Error Message",  
-	    predicate = { true }  
-    )
+```kotlin
+val validator = Validator(  
+    message = "Error Message",  
+    predicate = { true }  
+)
+```
 
 If you want to validate only one value, you can directly use the ***Validator*** class. 
 
 **Start Validation**
 
-    val result = chain { validator { "someone@example.com".contains("@") } }.validate()
+```kotlin
+val result = chain {
+	validator { "someone@example.com".contains("@") }
+}.validate()
+```
 
 You can start validation by calling ***validate()*** on a ***Validator*** object.
 
@@ -82,14 +90,16 @@ You can start validation by calling ***validate()*** on a ***Validator*** object
 
 It may be required to perform a task after a chain is validated for example after the email chain is validated, you may want to reflect its result **(success or failure)** to the UI. For this purpose, you can use the ***fold()*** function.
 
-    fun updateState() {  
-	    email("someone@example.com")  
-		    .validate()  
-		    .fold(  
-			    { println("is validation successful: $it") }, // gets a boolean  
-			    { print(it.message) } // gets a throwable consisting of the error message if given  
-		    )  
-    }
+```kotlin
+fun updateState() {  
+    email("someone@example.com")  
+	    .validate()  
+	    .fold(  
+		    { println("is validation successful: $it") }, // gets a boolean  
+		    { print(it.message) } // gets a throwable consisting of the error message if given  
+	    )  
+}
+```
 
 **Best Practice** (Based on my opinions)
 
