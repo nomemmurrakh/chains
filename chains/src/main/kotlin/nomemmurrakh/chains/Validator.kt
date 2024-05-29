@@ -1,14 +1,33 @@
 package nomemmurrakh.chains
 
 data class Validator(
-    var next: Validator? = null,
-    var message: String? = null,
-    var predicate: () -> Boolean = { false },
+    val next: Validator? = null,
+    val message: String? = null,
+    val block: () -> Boolean = { false }
 ) {
-    fun validate(): Result<Boolean> =
-        if (predicate())
-            next?.validate() ?: Result.success(true)
+    fun validate(): Result<Unit> =
+        if (block())
+            next?.validate() ?: Result.success(Unit)
         else Result.failure(IllegalStateException(message ?: "A message was not specified"))
+}
 
-    fun Validator.nextOrThis(): Validator = next?.nextOrThis() ?: this
+internal class ValidatorBuilder {
+
+    private var next: Validator? = null
+    private var message: String? = null
+    private var block: () -> Boolean = { false }
+
+    fun setNext(next: Validator?) {
+        this.next = next
+    }
+
+    fun setMessage(message: String?) {
+        this.message = message
+    }
+
+    fun setBlock(block: () -> Boolean) {
+        this.block = block
+    }
+
+    fun build(): Validator = Validator(next, message, block)
 }

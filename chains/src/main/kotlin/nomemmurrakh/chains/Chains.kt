@@ -1,16 +1,20 @@
 package nomemmurrakh.chains
 
-object ChainBuilderScope {
+class ChainBuilder {
+    fun validator(block: () -> Boolean): Validator =
+        ValidatorBuilder().apply { setBlock(block) }.build()
 
-    fun String.unless(predicate: () -> Boolean): Validator =
-        Validator(null, this, predicate)
-
-    fun validator(init: Validator.() -> Unit): Validator =
-        Validator().apply { init() }
+    fun String.unless(block: () -> Boolean): Validator =
+        ValidatorBuilder().apply {
+            setMessage(this@unless)
+            setBlock(block)
+        }.build()
 
     operator fun Validator.plus(validator: Validator): Validator =
-        apply { nextOrThis().next = validator }
+        nextOrThis().copy(next = validator)
+
+    private fun Validator.nextOrThis(): Validator = next?.nextOrThis() ?: this
 }
 
-fun chain(builder: ChainBuilderScope.() -> Validator): Validator =
-    with(ChainBuilderScope) { builder() }
+fun chain(builder: ChainBuilder.() -> Validator): Validator =
+    with(ChainBuilder()) { builder() }
