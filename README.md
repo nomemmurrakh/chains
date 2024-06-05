@@ -13,7 +13,7 @@ dependencyResolutionManagement {
 
 // module-level build.gradle
 dependencies {
-	implementation 'com.github.nomemmurrakh:chains:1.0.2'
+	implementation 'com.github.nomemmurrakh:chains:<version>'
 }
 ```
 
