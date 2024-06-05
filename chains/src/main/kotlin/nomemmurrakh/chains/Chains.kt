@@ -11,7 +11,7 @@ class ChainBuilder {
         }.build()
 
     operator fun Validator.plus(validator: Validator): Validator =
-        nextOrThis().copy(next = validator)
+        apply { nextOrThis().next = validator }
 
     private fun Validator.nextOrThis(): Validator = next?.nextOrThis() ?: this
 }

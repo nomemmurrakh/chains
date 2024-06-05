@@ -1,10 +1,12 @@
 package nomemmurrakh.chains
 
-data class Validator(
-    val next: Validator? = null,
+class Validator(
     val message: String? = null,
     val block: () -> Boolean = { false }
 ) {
+    var next: Validator? = null
+        internal set
+
     fun validate(): Result<Unit> =
         if (block())
             next?.validate() ?: Result.success(Unit)
@@ -13,13 +15,8 @@ data class Validator(
 
 internal class ValidatorBuilder {
 
-    private var next: Validator? = null
     private var message: String? = null
     private var block: () -> Boolean = { false }
-
-    fun setNext(next: Validator?) {
-        this.next = next
-    }
 
     fun setMessage(message: String?) {
         this.message = message
@@ -29,5 +26,5 @@ internal class ValidatorBuilder {
         this.block = block
     }
 
-    fun build(): Validator = Validator(next, message, block)
+    fun build(): Validator = Validator(message, block)
 }
